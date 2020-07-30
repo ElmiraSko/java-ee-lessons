@@ -1,0 +1,14 @@
+
+16:11:22,934 INFO  [org.infinispan.PERSISTENCE] (MSC service thread 1-1) ISPN000556: Starting user marshaller 'org.wildfly.clustering.infinispan.marshalling.jboss.JBossMarshaller'
+16:11:22,951 INFO  [org.infinispan.CONTAINER] (MSC service thread 1-1) ISPN000128: Infinispan version: Infinispan 'Turia' 10.1.8.Final
+16:11:23,292 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 78) WFLYCLINF0002: Started client-mappings cache from ejb container
+16:11:23,410 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 81) WFLYUT0021: Registered web context: '/first-web-app' for server 'default-server'
+16:11:23,594 INFO  [org.jboss.as.server] (management-handler-thread - 1) WFLYSRV0010: Deployed "first-web-app.war" (runtime-name : "first-web-app.war")
+
+17:02:33,704 INFO  [org.jboss.as.repository] (management-handler-thread - 2) WFLYDR0001: Content added at location D:\WildFly\wildfly-20.0.1.Final\wildfly-20.0.1.Final\standalone\data\content\b0\e09d18de853a2ab34e906a0433f2950609e31f\content
+17:02:33,718 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 81) WFLYUT0022: Unregistered web context: '/first-web-app' from server 'default-server'
+17:02:33,747 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-8) WFLYSRV0028: Stopped deployment first-web-app.war (runtime-name: first-web-app.war) in 35ms
+17:02:33,749 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-4) WFLYSRV0027: Starting deployment of "first-web-app.war" (runtime-name: "first-web-app.war")
+17:02:33,857 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 83) WFLYUT0021: Registered web context: '/first-web-app' for server 'default-server'
+17:02:33,872 INFO  [org.jboss.as.server] (management-handler-thread - 2) WFLYSRV0016: Replaced deployment "first-web-app.war" with deployment "first-web-app.war"
+17:02:33,875 INFO  [org.jboss.as.repository] (management-handler-thread - 2) WFLYDR0002: Content removed from location D:\WildFly\wildfly-20.0.1.Final\wildfly-20.0.1.Final\standalone\data\content\9c\01fd5945ca3ae7868fd3399ec7465278a5032c\content
