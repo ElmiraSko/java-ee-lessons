@@ -1,1 +1,10 @@
+ru\erasko\filter\EncodingFilter.class
+ru\erasko\servlets\ForbiddenExceptionServlet.class
+ru\erasko\servlets\CartServlet.class
+ru\erasko\servlets\MainServlet.class
+ru\erasko\servlets\NavBarServlet.class
+ru\erasko\servlets\ProductServlet.class
+ru\erasko\servlets\CatalogServlet.class
 ru\erasko\FirstServlet.class
+ru\erasko\servlets\OrderServlet.class
+ru\erasko\servlets\NotFoundExceptionServlet.class
