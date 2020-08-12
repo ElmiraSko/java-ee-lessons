@@ -8,7 +8,7 @@ public class Order {
     private Long customerId;
     private int qty;
     private BigDecimal totalPrice;
-    private Date date; // не получилось разобраться с типом Date
+    private Date date;
 
     public Order() {
     }
@@ -19,6 +19,13 @@ public class Order {
         this.qty = qty;
         this.totalPrice = totalPrice;
         this.date = date;
+    }
+
+    public Order(Long id, Long customerId, int qty, BigDecimal totalPrice) {
+        this.id = id;
+        this.customerId = customerId;
+        this.qty = qty;
+        this.totalPrice = totalPrice;
     }
 
     public Long getId() {

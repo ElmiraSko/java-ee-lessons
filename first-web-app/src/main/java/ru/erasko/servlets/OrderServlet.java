@@ -15,8 +15,6 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.SQLException;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Optional;
 
 @WebServlet(name = "servlets.OrderServlet",
@@ -74,29 +72,22 @@ public class OrderServlet extends HttpServlet {
         if (req.getServletPath().equals("/order/upsert")) {
             try {
                 String strId = req.getParameter("id");
-
-                SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
-                String dateInString = req.getParameter("dateParam");
-                logger.info("Data = " + dateInString);
-                logger.info("== " + sdf.parse(dateInString).getTime());
-
                 if (strId.isEmpty()) {
                     orderRepository.insert(new Order( -1L,
                             Long.parseLong(req.getParameter("customerId")),
                             Integer.parseInt(req.getParameter("qty")),
                             new BigDecimal(req.getParameter("totalPrice")),
-                            new Date(sdf.parse(dateInString).getTime())));
+                            new Date(System.currentTimeMillis())));
                 }
                 else {
                     orderRepository.update(new Order( Long.parseLong(strId),
                             Long.parseLong(req.getParameter("customerId")),
                             Integer.parseInt(req.getParameter("qty")),
-                            new BigDecimal(req.getParameter("totalPrice")),
-                            new Date(sdf.parse(dateInString).getTime())));
+                            new BigDecimal(req.getParameter("totalPrice"))));
                 }
                 resp.sendRedirect(getServletContext().getContextPath() + "/order");
 
-            } catch (SQLException | ParseException ex) {
+            } catch (SQLException ex) {
                 throw new IllegalStateException(ex);
             }
         }

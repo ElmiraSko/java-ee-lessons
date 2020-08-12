@@ -41,12 +41,11 @@ public class OrderRepository {
 
     public void update(Order order) throws SQLException {
         try (PreparedStatement statement = conn.prepareStatement(
-                "update orders set customer_id = ?, qty = ?, total_price = ? date_time = ? where id = ?;")){
+                "update orders set customer_id = ?, qty = ?, total_price = ? where id = ?;")){
             statement.setLong(1, order.getCustomerId());
             statement.setInt(2, order.getQty());
             statement.setBigDecimal(3, order.getTotalPrice());
-            statement.setDate(4, order.getDate()); // пока не получилось разобраться с типом Date
-            statement.setLong(5, order.getId());
+            statement.setLong(4, order.getId());
             statement.execute();
         }
     }

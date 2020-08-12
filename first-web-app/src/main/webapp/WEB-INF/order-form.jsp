@@ -25,11 +25,6 @@
                 <input type="number" id="price" name="totalPrice" class="form-control" step="0.01" min="0"
                        placeholder="0,00" value="${order.totalPrice}">
             </div>
-            <div class="form-group">
-                <label for="date">Date</label>
-                <input type="date" id="date" name="dateParam" class="form-control"
-                       placeholder="date" value="${order.date}">
-            </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
