@@ -35,7 +35,7 @@ public class OrderServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("Order page");
-
+        req.setAttribute("activePage", "orderPage");
         if (req.getServletPath().equals("/order")) {
             try {
                 req.setAttribute("orders", orderRepository.findAll());

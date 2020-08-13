@@ -32,7 +32,7 @@ public class CatalogServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("CatalogRepository page");
-
+        req.setAttribute("activePage", "catalogPage");
         if (req.getServletPath().equals("/catalog")) {
             try {
                 req.setAttribute("catalogs", catalogRepository.findAll());

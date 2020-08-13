@@ -33,7 +33,7 @@ public class CartServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("Cart item page");
-
+        req.setAttribute("activePage", "cartItemPage");
         if (req.getServletPath().equals("/cart")) {
             try {
                 req.setAttribute("cartItems", cartRepository.findAll());

@@ -22,7 +22,7 @@ public class ProductServlet extends HttpServlet {
 
     private ProductRepository productRepository;
 
-    public void init()throws ServletException {
+    public void init() throws ServletException {
         productRepository = (ProductRepository) getServletContext().getAttribute("productRepository");
         if (productRepository == null) {
             throw new ServletException("Product repository not initialized");
@@ -32,6 +32,7 @@ public class ProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("Index product page");
+        req.setAttribute("activePage", "productPage");
 
         if (req.getServletPath().equals("/")) {
             try {
