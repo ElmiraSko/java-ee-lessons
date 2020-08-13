@@ -16,7 +16,7 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 @WebServlet(name = "servlets.CartServlet",
-        urlPatterns = {"/cart", "/cart/new", "/cart/edit", "/cart/cartUpsert"})
+        urlPatterns = {"/cart", "/cart/new", "/cart/edit", "/cart/cartUpsert", "/cart/delete"})
 public class CartServlet extends HttpServlet {
 
     Logger logger = LoggerFactory.getLogger(CartServlet.class);
@@ -41,8 +41,7 @@ public class CartServlet extends HttpServlet {
             } catch (SQLException ex) {
                 throw new IllegalStateException(ex);
             }
-        }
-        if (req.getServletPath().equals("/cart/new")) {
+        } else if (req.getServletPath().equals("/cart/new")) {
             req.setAttribute("cartItem", new CartItem());
             getServletContext().getRequestDispatcher("/WEB-INF/cart-form.jsp").forward(req, resp);
         }  else
@@ -61,7 +60,19 @@ public class CartServlet extends HttpServlet {
                 throw new IllegalStateException(ex);
             }
             getServletContext().getRequestDispatcher("/WEB-INF/cart-form.jsp").forward(req, resp);
+        } else
+        if (req.getServletPath().equals("/cart/delete")) {
+            String  cartId = req.getParameter("id");
+            try {
+                cartRepository.delete(Long.parseLong(cartId));
+                logger.info("cartRepository.delete!");
+            } catch (SQLException ex) {
+                logger.info("SQLException: IllegalStateException(ex) for delete!");
+                throw new IllegalStateException(ex);
+            }
+            resp.sendRedirect(getServletContext().getContextPath() + "/cart");
         }
+
         else {
             logger.error("Error!!!");
             resp.sendError(HttpServletResponse.SC_NOT_FOUND);

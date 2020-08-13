@@ -18,7 +18,7 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 @WebServlet(name = "servlets.OrderServlet",
-        urlPatterns = {"/order", "/order/new", "/order/edit", "/order/upsert"})
+        urlPatterns = {"/order", "/order/new", "/order/edit", "/order/upsert", "/order/delete"})
 public class OrderServlet extends HttpServlet {
 
     Logger logger = LoggerFactory.getLogger(ProductServlet.class);
@@ -43,7 +43,7 @@ public class OrderServlet extends HttpServlet {
             } catch (SQLException ex) {
                 throw new IllegalStateException(ex);
             }
-        }
+        } else
         if (req.getServletPath().equals("/order/new")) {
             req.setAttribute("order", new Order());
             getServletContext().getRequestDispatcher("/WEB-INF/order-form.jsp").forward(req, resp);
@@ -58,11 +58,21 @@ public class OrderServlet extends HttpServlet {
                     resp.sendError(HttpServletResponse.SC_NOT_FOUND);
                     return;
                 }
-
             } catch (SQLException ex) {
                 throw new IllegalStateException(ex);
             }
             getServletContext().getRequestDispatcher("/WEB-INF/order-form.jsp").forward(req, resp);
+        } else
+        if (req.getServletPath().equals("/order/delete")) {
+            String  orderId = req.getParameter("id");
+            try {
+                orderRepository.delete(Long.parseLong(orderId));
+                logger.info("orderRepository.delete!");
+            } catch (SQLException ex) {
+                logger.info("SQLException: IllegalStateException(ex) for delete!");
+                throw new IllegalStateException(ex);
+            }
+            resp.sendRedirect(getServletContext().getContextPath() + "/order");
         }
         else resp.sendError(HttpServletResponse.SC_NOT_FOUND);
     }

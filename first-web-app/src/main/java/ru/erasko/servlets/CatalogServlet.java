@@ -16,7 +16,7 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 @WebServlet(name = "servlets.CatalogServlet",
-        urlPatterns = {"/catalog", "/catalog/new", "/catalog/edit", "/catalog/catalogPost"})
+        urlPatterns = {"/catalog", "/catalog/new", "/catalog/edit", "/catalog/catalogPost", "/catalog/delete"})
 public class CatalogServlet extends HttpServlet {
 
     Logger logger = LoggerFactory.getLogger(CatalogServlet.class);
@@ -40,7 +40,7 @@ public class CatalogServlet extends HttpServlet {
             } catch (SQLException ex) {
                 throw new IllegalStateException(ex);
             }
-        }
+        } else
         if (req.getServletPath().equals("/catalog/new")) {
             req.setAttribute("catalog", new Catalog());
             getServletContext().getRequestDispatcher("/WEB-INF/catalog-form.jsp").forward(req, resp);
@@ -55,11 +55,21 @@ public class CatalogServlet extends HttpServlet {
                     resp.sendError(HttpServletResponse.SC_NOT_FOUND);
                     return;
                 }
-
             } catch (SQLException ex) {
                 throw new IllegalStateException(ex);
             }
             getServletContext().getRequestDispatcher("/WEB-INF/catalog-form.jsp").forward(req, resp);
+        } else
+        if (req.getServletPath().equals("/catalog/delete")) {
+            try {
+                catalogRepository.delete(Long.parseLong(req.getParameter("id")));
+            } catch (SQLException ex) {
+                logger.info("SQLException: IllegalStateException(ex) for delete!");
+                throw new IllegalStateException(ex);
+            }
+            logger.info("Delete catalog by id!");
+//            getServletContext().getRequestDispatcher("/WEB-INF/catalogs.jsp").forward(req, resp);
+            resp.sendRedirect(getServletContext().getContextPath() + "/catalog");
         }
         else {
             logger.error("Error!!!");

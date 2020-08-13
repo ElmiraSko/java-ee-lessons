@@ -50,10 +50,10 @@ public class OrderRepository {
         }
     }
 
-    public void delete(Order order) throws SQLException {
+    public void delete(Long id) throws SQLException {
         try (PreparedStatement statement = conn.prepareStatement(
                 "delete from orders where id = ?;")){
-            statement.setLong(1, order.getId());
+            statement.setLong(1, id);
             statement.execute();
         }
     }

@@ -47,10 +47,10 @@ public class CatalogRepository {
         }
     }
 
-    public void delete(Catalog catalog) throws SQLException {
+    public void delete(Long id) throws SQLException {
         try (PreparedStatement statement = conn.prepareStatement(
                 "delete from cataloges where id = ?;")){
-            statement.setLong(1, catalog.getId());
+            statement.setLong(1, id);
             statement.execute();
         }
     }

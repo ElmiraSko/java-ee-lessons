@@ -37,7 +37,7 @@
                     </c:url>
                     <a class="btn btn-primary"  href="${productEditUrl}">
                         <i class="fas fa-edit"></i></a>
-                    <a class="btn btn-danger" href="#">
+                    <a class="btn btn-danger" href='<c:url value="/delete?id=${product.id}"/>'>
                         <i class="far fa-trash-alt"></i></a>
                 </td>
             </tr>

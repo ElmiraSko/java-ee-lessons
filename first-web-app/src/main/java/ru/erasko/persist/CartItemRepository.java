@@ -49,10 +49,10 @@ public class CartItemRepository {
         }
     }
 
-    public void delete(CartItem cartItem) throws SQLException {
+    public void delete(Long id) throws SQLException {
         try (PreparedStatement statement = conn.prepareStatement(
                 "delete from cart where id = ?;")){
-            statement.setLong(1, cartItem.getId());
+            statement.setLong(1, id);
             statement.execute();
         }
     }

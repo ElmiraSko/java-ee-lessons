@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.Optional;
 
-@WebServlet(name = "servlets.ProductServlet", urlPatterns = {"/", ""})
+@WebServlet(name = "servlets.ProductServlet", urlPatterns = {"/", "", "/delete"})
 public class ProductServlet extends HttpServlet {
 
     Logger logger = LoggerFactory.getLogger(ProductServlet.class);
@@ -40,7 +40,7 @@ public class ProductServlet extends HttpServlet {
             } catch (SQLException ex) {
                 throw new IllegalStateException(ex);
             }
-        }
+        } else
         if (req.getServletPath().equals("/new")) {
             req.setAttribute("product", new Product());
             getServletContext().getRequestDispatcher("/WEB-INF/product.jsp").forward(req, resp);
@@ -60,6 +60,17 @@ public class ProductServlet extends HttpServlet {
                 throw new IllegalStateException(ex);
             }
             getServletContext().getRequestDispatcher("/WEB-INF/product.jsp").forward(req, resp);
+        }
+        else
+        if (req.getServletPath().equals("/delete")) {
+            try {
+                productRepository.delete(Long.parseLong(req.getParameter("id")));
+            } catch (SQLException ex) {
+                logger.info("SQLException: IllegalStateException(ex) for delete!");
+                throw new IllegalStateException(ex);
+            }
+            logger.info("Delete product by id!");
+            resp.sendRedirect(getServletContext().getContextPath());
         }
         else resp.sendError(HttpServletResponse.SC_NOT_FOUND);
     }

@@ -49,10 +49,10 @@ public class ProductRepository {
         }
     }
 
-    public void delete(Product product) throws SQLException {
+    public void delete(Long id) throws SQLException {
         try (PreparedStatement statement = conn.prepareStatement(
                 "delete from products where id = ?;")){
-            statement.setLong(1, product.getId());
+            statement.setLong(1, id);
             statement.execute();
         }
     }

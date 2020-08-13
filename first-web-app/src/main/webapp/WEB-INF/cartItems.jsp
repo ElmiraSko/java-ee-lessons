@@ -39,7 +39,7 @@
                     </c:url>
                     <a class="btn btn-primary"  href="${cartEditUrl}">
                         <i class="fas fa-edit"></i></a>
-                    <a class="btn btn-danger" href="#">
+                    <a class="btn btn-danger" href='<c:url value="/cart/delete?id=${cartItems.id}"/>'>
                         <i class="far fa-trash-alt"></i></a>
                 </td>
             </tr>
