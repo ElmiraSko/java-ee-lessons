@@ -45,7 +45,7 @@ public class OrderServlet extends HttpServlet {
             }
         } else
         if (req.getServletPath().equals("/order/new")) {
-            req.setAttribute("order", new Order());
+//            req.setAttribute("order", new Order());
             getServletContext().getRequestDispatcher("/WEB-INF/order-form.jsp").forward(req, resp);
         }  else
         if (req.getServletPath().equals("/order/edit")) {
