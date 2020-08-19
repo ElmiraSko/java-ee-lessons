@@ -6,6 +6,22 @@
 
   <display-name>Archetype Created Web Application</display-name>
 
+  <context-param>
+    <param-name>jdbcConnectionString</param-name>
+    <param-value>jdbc:mysql://localhost:3306/javaee_shop_db?createDatabaseIfNotExist=true&amp;serverTimezone=UTC&amp;useSSL=false&amp;allowPublicKeyRetrieval=true</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>username</param-name>
+    <param-value>root</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>password</param-name>
+    <param-value>my18Erasql20</param-value>
+  </context-param>
+
+
   <servlet>
     <servlet-name>first-servlet</servlet-name>
     <servlet-class>ru.erasko.FirstServlet</servlet-class>
