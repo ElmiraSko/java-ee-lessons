@@ -1,0 +1,40 @@
+<html lang="un" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<body>
+<ui:composition>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+    <h:link value="EShop" styleClass="nav-link #{'activePage'}=='productPage' ? 'active':'' " outcome="/index"/>
+    <h:link value="Product list"
+            styleClass="nav-link #{'activePage'}=='productPage' ? 'active':''" outcome="/index"/>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <h:link value="Catalog"
+                        styleClass="nav-link #{'activePage'=='catalogPage' ? 'active':''}"
+                        outcome="/catalogs"/>
+            </li>
+            <li class="nav-item">
+                <h:link value="Cart" styleClass="nav-link #{'activePage'=='cartPage' ? 'active':''}"
+                        outcome="/cart"/>
+            </li>
+            <li class="nav-item">
+                <h:link value="Order" styleClass="nav-link #{'activePage'=='orderPage' ? 'active':''}"
+                        outcome="/orders"/>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0" action="#" method="post">
+            <button class="btn btn-outline-success my-2 my-sm-0">Logout</button>
+        </form>
+    </div>
+</nav>
+</ui:composition>
+</body>
+</html>
