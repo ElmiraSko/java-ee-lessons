@@ -50,6 +50,6 @@ public class CatalogController implements Serializable {
         } else {
             catalogRepository.insert(catalog);
         }
-        return "/catalogs.xhtml?faces-redirect=true";
+        return "/catalog.xhtml?faces-redirect=true";
     }
 }

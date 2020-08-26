@@ -17,17 +17,21 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <h:link value="Catalog"
+                <h:link value="Category"
                         styleClass="nav-link #{'activePage'=='catalogPage' ? 'active':''}"
-                        outcome="/catalogs"/>
+                        outcome="/category.xhtml"/>
             </li>
             <li class="nav-item">
                 <h:link value="Cart" styleClass="nav-link #{'activePage'=='cartPage' ? 'active':''}"
-                        outcome="/cart"/>
+                        outcome="/cart.xhtml?faces-redirect=true"/>
             </li>
             <li class="nav-item">
                 <h:link value="Order" styleClass="nav-link #{'activePage'=='orderPage' ? 'active':''}"
-                        outcome="/orders"/>
+                        outcome="/orders.xhtml?faces-redirect=true"/>
+            </li>
+            <li class="nav-item">
+                <h:link value="OrderProduct" styleClass="nav-link #{'activePage'=='orderPage' ? 'active':''}"
+                        outcome="/orderProduct.xhtml?faces-redirect=true"/>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0" action="#" method="post">

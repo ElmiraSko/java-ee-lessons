@@ -18,14 +18,11 @@
                              value="#{orderController.order.customerId}" placeholder="Enter customerId"/>
             </div>
             <div class="form-group">
-                <h:outputLabel value="Qty"/>
-                <h:inputText styleClass="form-control" id="qty"
-                             value="#{orderController.order.qty}" placeholder="Enter qty"/>
-            </div>
-            <div class="form-group">
                 <h:outputLabel value="TotalPrice"/>
-                <h:inputText styleClass="form-control" id="totalPrice"
-                             value="#{orderController.order.totalPrice}" placeholder="Enter totalPrice"/>
+                <h:inputText styleClass="form-control" id="totalPrice" p:type="number"
+                             value="#{orderController.order.totalPrice}" placeholder="Enter totalPrice">
+                <f:converter converterId="javax.faces.BigDecimal"/>
+                </h:inputText>
             </div>
             <h:commandButton value="Submit"
                              styleClass="btn btn-primary" action="#{orderController.saveOrder()}"/>

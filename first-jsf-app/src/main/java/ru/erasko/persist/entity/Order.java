@@ -1,32 +1,42 @@
 package ru.erasko.persist.entity;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.List;
 
+@Entity
+@Table(name = "orders")
 public class Order implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private Long customerId;
-    private int qty;
+
+    @Column
     private BigDecimal totalPrice;
+
+    @Column
     private Date date;
+
+    @OneToMany(
+            mappedBy = "order",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<OrderProduct> orderProducts;
 
     public Order() {
     }
 
-    public Order(Long id, Long customerId, int qty, BigDecimal totalPrice, Date date) {
+    public Order(Long id, Long customerId, BigDecimal totalPrice) {
         this.id = id;
         this.customerId = customerId;
-        this.qty = qty;
         this.totalPrice = totalPrice;
-        this.date = date;
-    }
-
-    public Order(Long id, Long customerId, int qty, BigDecimal totalPrice) {
-        this.id = id;
-        this.customerId = customerId;
-        this.qty = qty;
-        this.totalPrice = totalPrice;
+        this.date = new Date(System.currentTimeMillis());
     }
 
     public Long getId() {
@@ -43,14 +53,6 @@ public class Order implements Serializable {
 
     public void setCustomerId(Long customerId) {
         this.customerId = customerId;
-    }
-
-    public int getQty() {
-        return qty;
-    }
-
-    public void setQty(int qty) {
-        this.qty = qty;
     }
 
     public BigDecimal getTotalPrice() {

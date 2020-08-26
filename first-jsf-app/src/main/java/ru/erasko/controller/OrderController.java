@@ -7,9 +7,8 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.sql.SQLException;
+import java.sql.Date;
 import java.util.List;
-
 
 @SessionScoped
 @Named
@@ -26,7 +25,7 @@ public class OrderController implements Serializable {
         this.order = order;
     }
 
-    public List<Order> getAllOrders() throws SQLException {
+    public List<Order> getAllOrders() {
         return orderRepository.findAll();
     }
 
@@ -40,14 +39,15 @@ public class OrderController implements Serializable {
         return "/order-form.xhtml?faces-redirect=true";
     }
 
-    public void deleteOrder(Order order) throws SQLException {
+    public void deleteOrder(Order order) {
         orderRepository.delete(order.getId());
     }
 
-    public String saveOrder() throws SQLException {
+    public String saveOrder() {
         if (order.getId() != null) {
             orderRepository.update(order);
         } else {
+            order.setDate(new Date(System.currentTimeMillis()));
             orderRepository.insert(order);
         }
         return "/orders.xhtml?faces-redirect=true";
