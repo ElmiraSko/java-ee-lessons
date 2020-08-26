@@ -1,6 +1,8 @@
 package ru.erasko.controller;
 
+import ru.erasko.persist.CategoryRepository;
 import ru.erasko.persist.ProductRepository;
+import ru.erasko.persist.entity.Category;
 import ru.erasko.persist.entity.Product;
 
 import javax.enterprise.context.SessionScoped;
@@ -11,11 +13,14 @@ import java.sql.SQLException;
 import java.util.List;
 
 @SessionScoped
-@Named
+@Named("productController")
 public class ProductController implements Serializable {
 
     @Inject
     private ProductRepository productRepository;
+    @Inject
+    private CategoryRepository categoryRepository;
+
     private Product product;
 
     public Product getProduct() {
@@ -51,5 +56,9 @@ public class ProductController implements Serializable {
             productRepository.insert(product);
         }
         return "/index.xhtml?faces-redirect=true";
+    }
+
+    public List<Category> getAllCategories() {
+        return categoryRepository.findAll();
     }
 }

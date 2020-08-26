@@ -31,9 +31,6 @@ public class CatalogRepository {
 
     @PostConstruct
     public void init() throws SQLException {
-        conn = (Connection) context.getAttribute("jdbcConnection");
-        createTableIfNotExist(conn);
-
         if (this.findAll().isEmpty()) {
             logger.info("No catalog in DB. Initialized");
             this.insert(new Catalog(-1L, "Phone"));

@@ -1,0 +1,61 @@
+<html lang="un" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <ui:include src="/fragments/head.xhtml">
+        <ui:param name="activePage" value="productPage"/>
+    </ui:include>
+</h:head>
+
+<h:body>
+    <ui:include src="/fragments/menu.xhtml">
+        <ui:param name="activePage" value="productPage"/>
+    </ui:include>
+
+    <div class="container">
+        <h1 class="text-center">Order products</h1>
+
+        <h:form id="productsForm">
+            <div class="row py-2">
+                <div class="col-12">
+                    <h:commandButton value="Add orderProduct" styleClass="btn btn-primary"
+                                     action="#{orderProductController.createOrderProduct}"/>
+                </div>
+            </div>
+            <h:dataTable value="#{orderProductController.allOrderProduct}"
+                         styleClass="table table-striped table-bordered"
+                         var="orderProd">
+                <h:column>
+                    <f:facet name="header">Id</f:facet>
+                    #{orderProd.id}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Order</f:facet>
+                    #{orderProd.order}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">OrderProduct</f:facet>
+                    #{orderProd.product}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Qty</f:facet>
+                    #{orderProd.qty}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Action</f:facet>
+                    <h:commandButton value="Edit" styleClass="btn btn-success"
+                                     action="#{orderProductController.editOrderProduct(orderProd)}"/>
+                    <h:commandButton value="Delete" styleClass="btn btn-danger"
+                                     action="#{orderProductController.deleteOrderProduct(orderProd)}">
+                        <f:ajax event="click" render="productsForm"/>
+                    </h:commandButton>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </div>
+
+    <ui:include src="/fragments/scripts.xhtml"/>
+</h:body>
+</html>

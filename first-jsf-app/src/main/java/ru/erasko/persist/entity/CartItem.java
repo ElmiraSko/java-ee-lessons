@@ -1,12 +1,20 @@
 package ru.erasko.persist.entity;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+@Entity
+@Table(name = "cartItems")
 public class CartItem implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(length = 128, nullable = false)
     private String prodName;
+    @Column(nullable = false)
     private int qty;
+    @Column(nullable = false)
     private BigDecimal price;
 
     public CartItem() {
