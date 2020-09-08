@@ -6,63 +6,38 @@ import ru.erasko.persist.entity.CartItem;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.SystemException;
-import javax.transaction.Transactional;
 import javax.transaction.UserTransaction;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.util.List;
 import java.util.Optional;
 
-@ApplicationScoped
-@Named
+@Stateless
 public class CartItemRepository {
     private final Logger logger = LoggerFactory.getLogger(CartItemRepository.class);
 
     @PersistenceContext(unitName = "ds")
     private EntityManager em;
 
-    @Resource
-    private UserTransaction ut;
-
     public CartItemRepository() {
     }
 
-    @PostConstruct
-    public void init() throws SQLException {
-
-        if (this.findAll().isEmpty()) {
-            logger.info("No cartItem in DB. Initialized");
-            try {
-                ut.begin();
-            this.insert(new CartItem(null, "Samsung Galaxy Tab S7", 2, new BigDecimal(13400)));
-                ut.commit();
-            } catch (Exception ex) {
-                logger.error("", ex);
-                try {
-                    ut.rollback();
-                } catch (SystemException e) {
-                    logger.error("", e);
-                }
-            }
-        }
-    }
-
-    @Transactional
+    @TransactionAttribute
     public void insert(CartItem cartItem) throws SQLException {
         em.persist(cartItem);
     }
 
-    @Transactional
+    @TransactionAttribute
     public void update(CartItem cartItem) throws SQLException {
         em.merge(cartItem);
     }
 
-    @Transactional
+    @TransactionAttribute
     public void delete(Long id) throws SQLException {
         CartItem cartItem = em.find(CartItem.class, id);
         if (cartItem != null) {

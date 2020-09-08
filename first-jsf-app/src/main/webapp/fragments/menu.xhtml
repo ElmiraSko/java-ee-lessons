@@ -6,9 +6,9 @@
 <ui:composition>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
-    <h:link value="EShop" styleClass="nav-link #{'activePage'}=='productPage' ? 'active':'' " outcome="/index"/>
-    <h:link value="Product list"
-            styleClass="nav-link #{'activePage'}=='productPage' ? 'active':''" outcome="/index"/>
+    <h:link value="EShop" styleClass="nav-link" outcome="/index.xhtml"/>
+    <h:link value="Product list" outcome="/index.xhtml"
+            styleClass="nav-link"/>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,20 +18,20 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
                 <h:link value="Category"
-                        styleClass="nav-link #{'activePage'=='catalogPage' ? 'active':''}"
+                        styleClass="nav-link"
                         outcome="/category.xhtml"/>
             </li>
             <li class="nav-item">
-                <h:link value="Cart" styleClass="nav-link #{'activePage'=='cartPage' ? 'active':''}"
-                        outcome="/cart.xhtml?faces-redirect=true"/>
+                <h:link value="Cart" styleClass="nav-link"
+                        outcome="/cart.xhtml"/>
             </li>
             <li class="nav-item">
-                <h:link value="Order" styleClass="nav-link #{'activePage'=='orderPage' ? 'active':''}"
-                        outcome="/orders.xhtml?faces-redirect=true"/>
+                <h:link value="Order" styleClass="nav-link"
+                        outcome="/orders.xhtml"/>
             </li>
             <li class="nav-item">
-                <h:link value="OrderProduct" styleClass="nav-link #{'activePage'=='orderPage' ? 'active':''}"
-                        outcome="/orderProduct.xhtml?faces-redirect=true"/>
+                <h:link value="OrderProduct" styleClass="nav-link"
+                        outcome="/orderProduct.xhtml"/>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0" action="#" method="post">

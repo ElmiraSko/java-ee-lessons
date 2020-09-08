@@ -1,56 +1,49 @@
 package ru.erasko.controller;
 
-import ru.erasko.persist.CartItemRepository;
-import ru.erasko.persist.entity.CartItem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ru.erasko.service.interf.CartService;
+import ru.erasko.service.repr.LineItem;
+import ru.erasko.service.repr.ProductRepr;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.sql.SQLException;
+import java.math.BigDecimal;
 import java.util.List;
 
 @SessionScoped
 @Named
 public class CartController implements Serializable {
 
-    @Inject
-    private CartItemRepository cartItemRepository;
+    private final Logger logger = LoggerFactory.getLogger(CartController.class);
 
-    private CartItem cartItem;
+    @EJB
+    private CartService cartService;
 
-    public CartItem getCartItem() {
-        return cartItem;
+   // метод addProductToCart вызывается на странице продуктов при добавлении продукта в корзину
+    public void addProductToCart(ProductRepr productRepr) {
+        LineItem lineItem = new LineItem(productRepr);
+        addCartItem(lineItem);
     }
 
-    public void setCartItem(CartItem cartItem) {
-        this.cartItem = cartItem;
+    public List<LineItem> getAllItem() {
+        logger.info("CartController, getAllItem()");
+        return cartService.getAllProduct();
     }
 
-    public List<CartItem> getAllCartItem() throws SQLException {
-        return cartItemRepository.findAll();
+// addCartItem используется в методе addProductToCart(ProductRepr productRepr)
+    public void addCartItem(LineItem lineItem) {
+        cartService.addProduct(lineItem);
     }
 
-    public String createCartItem() {
-        this.cartItem = new CartItem();
-        return "/cart-form.xhtml?faces-redirect=true";
+    public void deleteCartItem(LineItem lineItem) {
+        cartService.delete(lineItem);
+        cartTotalSum();
     }
 
-    public String editCartItem(CartItem cartItem) {
-        this.cartItem = cartItem;
-        return "/cart-form.xhtml?faces-redirect=true";
-    }
-
-    public void deleteCartItem(CartItem cartItem) throws SQLException {
-        cartItemRepository.delete(cartItem.getId());
-    }
-
-    public String saveCartItem() throws SQLException {
-        if (cartItem.getId() != null) {
-            cartItemRepository.update(cartItem);
-        } else {
-            cartItemRepository.insert(cartItem);
-        }
-        return "/cart.xhtml?faces-redirect=true";
+    public BigDecimal cartTotalSum() {
+        return cartService.cartTotalSum();
     }
 }

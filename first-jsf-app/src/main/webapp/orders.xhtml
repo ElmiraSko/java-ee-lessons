@@ -14,12 +14,6 @@
 <div class="container">
     <h1 class="text-center">Order list</h1>
     <h:form id="ordersForm">
-    <div class="row py-2">
-        <div class="col-12">
-            <h:commandButton value="Add order" styleClass="btn btn-primary"
-                             action="#{orderController.createOrder()}"/>
-        </div>
-    </div>
 
         <h:dataTable value="#{orderController.allOrders}"
                      styleClass="table table-striped table-bordered"

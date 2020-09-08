@@ -4,59 +4,60 @@ import ru.erasko.persist.CategoryRepository;
 import ru.erasko.persist.ProductRepository;
 import ru.erasko.persist.entity.Category;
 import ru.erasko.persist.entity.Product;
+import ru.erasko.service.interf.CategoryService;
+import ru.erasko.service.repr.CategoryRepr;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.List;
 
 @SessionScoped
 @Named
 public class CategoryController implements Serializable {
 
-    @Inject
-    private CategoryRepository categoryRepository;
+    @EJB
+    private CategoryService categoryService;
 
-    private Category category;
+    private CategoryRepr categoryRepr;
 
-    public Category getCategory() {
-        return category;
+    public CategoryRepr getCategory() {
+        return categoryRepr;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategory(CategoryRepr categoryRepr) {
+        this.categoryRepr = categoryRepr;
     }
 
-    public List<Category> getAllCategories() {
-        return categoryRepository.findAll();
+    public List<CategoryRepr> getAllCategories() {
+        return categoryService.findAll();
     }
 
     public String createCategory() {
-        this.category = new Category();
+        this.categoryRepr = new CategoryRepr();
         return "/category-form.xhtml?faces-redirect=true";
     }
 
-    public String editCategory(Category category) {
-        this.category = category;
+    public String editCategory(CategoryRepr category) {
+        this.categoryRepr = category;
         return "/category-form.xhtml?faces-redirect=true";
     }
 
-    public void deleteCategory(Category category) {
-        categoryRepository.delete(category.getId());
+    public void deleteCategory(CategoryRepr category) {
+        categoryService.delete(category.getId());
     }
 
     public String saveCategory() {
-        if (category.getId() != null) {
-            categoryRepository.update(category);
+        if (categoryRepr.getId() != null) {
+            categoryService.update(categoryRepr);
         } else {
-            categoryRepository.insert(category);
+            categoryService.insert(categoryRepr);
         }
         return "/category.xhtml?faces-redirect=true";
     }
 
-    public List<Category> getCategories() {
-        return categoryRepository.findAll();
+    public List<CategoryRepr> getCategories() {
+        return categoryService.findAll();
     }
 }
