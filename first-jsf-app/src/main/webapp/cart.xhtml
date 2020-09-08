@@ -13,48 +13,57 @@
         <ui:param name="activePage" value="cartPage"/>
     </ui:include>
 
-
 <div class="container">
     <h1 class="text-center">Cart</h1>
 
     <h:form id="cartsForm">
-    <div class="row py-2">
-        <div class="col-12">
-            <h:commandButton value="Add item" styleClass="btn btn-primary"
-                             action="#{cartController.createCartItem}"/>
-        </div>
-    </div>
-
-    <h:dataTable value="#{cartController.allCartItem}" styleClass="table table-striped table-bordered"
-                     var="cartItem">
+    <h:dataTable value="#{cartController.allItem}" styleClass="table table-striped table-bordered"
+                     var="item">
         <h:column>
             <f:facet name="header">Id</f:facet>
-            #{cartItem.id}
+            #{item.id}
         </h:column>
         <h:column>
             <f:facet name="header">Name</f:facet>
-            #{cartItem.prodName}
-        </h:column>
-        <h:column>
-            <f:facet name="header">Qty</f:facet>
-            #{cartItem.qty}
+            #{item.name}
         </h:column>
         <h:column>
             <f:facet name="header">Price</f:facet>
-            #{cartItem.price}
+            #{item.price}
         </h:column>
         <h:column>
+            <f:facet name="header">Qty</f:facet>
+            #{item.qty}
+        </h:column>
+        <h:column>
+            <f:facet name="header">TotalPrice</f:facet>
+            #{item.totalPrice}
+        </h:column>
+
+        <h:column>
             <f:facet name="header">Action</f:facet>
-            <h:commandButton value="Edit" styleClass="btn btn-success"
-                             action="#{cartController.editCartItem(cartItem)}"/>
             <h:commandButton value="Delete" styleClass="btn btn-danger"
-                             action="#{cartController.deleteCartItem(cartItem)}">
-                <f:ajax event="click" render="cartsForm"/>
+                             action="#{cartController.deleteCartItem(item)}">
             </h:commandButton>
         </h:column>
 
     </h:dataTable>
     </h:form>
+
+    <div class="row py-2">
+        <div class="col-12">
+            <h4 class="text-left">Cart total sum:</h4>
+            #{cartController.cartTotalSum()}
+            <br/>
+            <hr/>
+            <h:form id="createOrderForm">
+            <h:commandButton value="Create order" styleClass="btn btn-primary"
+                             action="#{orderController.createOrder()}"/>
+            </h:form>
+        </div>
+    </div>
+
+
 </div>
 
 <ui:include src="/fragments/scripts.xhtml"/>

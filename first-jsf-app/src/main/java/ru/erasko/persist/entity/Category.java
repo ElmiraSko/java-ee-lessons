@@ -16,8 +16,12 @@ public class Category {
 
     @OneToMany(
             mappedBy = "category",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
+            cascade = CascadeType.ALL
+//            ,
+//            orphanRemoval = true // ? с ним возникает ошибка
+//            A collection with cascade="all-delete-orphan" was no longer
+//            referenced by the owning entity instance: ru.erasko.persist.entity.Category.products
+//	at org.hibernate.engine.internal.Collections.processDereferencedCollection(Collections.java:100)
     )
     private List<Product> products;
 

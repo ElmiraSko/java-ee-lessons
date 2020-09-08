@@ -2,49 +2,38 @@ package ru.erasko.persist;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.erasko.persist.entity.Category;
-import ru.erasko.persist.entity.Order;
 import ru.erasko.persist.entity.OrderProduct;
-import ru.erasko.persist.entity.Product;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.SystemException;
-import javax.transaction.Transactional;
 import javax.transaction.UserTransaction;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
-@ApplicationScoped
-@Named
+@Stateless
 public class OrderProductRepository {
     private static final Logger logger = LoggerFactory.getLogger(OrderProductRepository.class);
 
     @PersistenceContext(unitName = "ds")
     private EntityManager em;
 
-    @Inject
-    private UserTransaction ut;
-
     public OrderProductRepository() {
     }
 
-    @Transactional
+    @TransactionAttribute
     public void insert(OrderProduct orderProduct) {
         em.persist(orderProduct);
     }
 
-    @Transactional
+    @TransactionAttribute
     public void update(OrderProduct orderProduct) {
         em.merge(orderProduct);
     }
 
-    @Transactional
+    @TransactionAttribute
     public void delete(long id) {
         OrderProduct orderProduct = em.find(OrderProduct.class, id);
         if (orderProduct != null) {

@@ -31,7 +31,7 @@
             <div class="form-group">
                 <h:outputLabel value="Category"/>
                 <h:selectOneListbox size="1" styleClass="form-control" id="productCategory"
-                                    value="#{productController.product.category}">
+                                    value="#{productController.product.categoryId}">
                     <f:selectItems value="#{productController.allCategories}"
                                    var="cat"
                                    itemValue="#{cat.id}"

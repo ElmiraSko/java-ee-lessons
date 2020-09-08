@@ -1,42 +1,39 @@
-package ru.erasko.persist.entity;
+package ru.erasko.service.repr;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import ru.erasko.persist.entity.Order;
+import ru.erasko.persist.entity.OrderProduct;
+
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.List;
 
-@Entity
-@Table(name = "orders")
-public class Order implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class OrderRepr {
+
     private Long id;
-
-    @Column(nullable = false)
     private Long customerId;
-
-    @Column
     private BigDecimal totalPrice;
-
-    @Column
     private Date date;
-
-    @OneToMany(
-            mappedBy = "order",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
     private List<OrderProduct> orderProducts;
 
-    public Order() {
+    public OrderRepr() {
     }
 
-    public Order(Long id, Long customerId, BigDecimal totalPrice) {
+    public OrderRepr(Long id, Long customerId,
+                     BigDecimal totalPrice, Date date,
+                     List<OrderProduct> orderProducts) {
         this.id = id;
         this.customerId = customerId;
         this.totalPrice = totalPrice;
-        this.date = new Date(System.currentTimeMillis());
+        this.date = date;
+        this.orderProducts = orderProducts;
+    }
+
+    public OrderRepr(Order order) {
+        this.id = order.getId();
+        this.customerId = order.getCustomerId();
+        this.totalPrice = order.getTotalPrice();
+        this.date = order.getDate();
+        this.orderProducts = order.getOrderProducts();
     }
 
     public Long getId() {

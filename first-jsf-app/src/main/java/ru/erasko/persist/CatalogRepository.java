@@ -6,6 +6,7 @@ import ru.erasko.persist.entity.Catalog;
 import ru.erasko.persist.entity.Product;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.Stateless;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -16,8 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@ApplicationScoped
-@Named
+@Stateless
 public class CatalogRepository {
     Logger logger = LoggerFactory.getLogger(CatalogRepository.class);
 
