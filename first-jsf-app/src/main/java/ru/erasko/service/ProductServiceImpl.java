@@ -6,18 +6,23 @@ import ru.erasko.persist.CategoryRepository;
 import ru.erasko.persist.ProductRepository;
 import ru.erasko.persist.entity.Category;
 import ru.erasko.persist.entity.Product;
+import ru.erasko.rest.ProductServiceRs;
 import ru.erasko.service.interf.ProductService;
+import ru.erasko.service.interf.ProductServiceWs;
+import ru.erasko.service.repr.CategoryRepr;
 import ru.erasko.service.repr.ProductRepr;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
+import javax.jws.WebService;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Stateless
-public class ProductServiceImpl implements ProductService {
+@WebService(endpointInterface = "ru.erasko.service.interf.ProductServiceWs", serviceName = "ProductService")
+public class ProductServiceImpl implements ProductService, ProductServiceWs, ProductServiceRs {
     private final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
     @EJB
@@ -36,6 +41,11 @@ public class ProductServiceImpl implements ProductService {
                 productRepr.getPrice(),
                 category);
         productRepository.insert(product);
+    }
+
+    @Override
+    public void insertCategoryRs(CategoryRepr categoryRepr) {
+        insertCategory(categoryRepr);
     }
 
     @TransactionAttribute
@@ -69,4 +79,43 @@ public class ProductServiceImpl implements ProductService {
                 .map(ProductRepr::new)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public ProductRepr findByIdRs(Long id) {
+        return findById(id).get();
+    }
+
+    @Override
+    public ProductRepr findByNameRs(String name) {
+        return getProductByName(name);
+    }
+
+    @Override
+    public List<ProductRepr> findByCategoryIdRs(Long id) {
+        return getProductsByCategoryId(id);
+    }
+
+    @Override
+    public ProductRepr getProductById(Long id) {
+        return new ProductRepr(productRepository.findById(id).get());
+    }
+
+    @Override
+    public ProductRepr getProductByName(String name) {
+        return new ProductRepr(productRepository.findByName(name));
+    }
+
+    @Override
+    public List<ProductRepr> getProductsByCategoryId(Long id) {
+        return productRepository.findProductByCategoryId(id).stream()
+                .map(ProductRepr::new)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void insertCategory(CategoryRepr categoryRepr) {
+        Category category = new Category(categoryRepr.getId(), categoryRepr.getName());
+        categoryRepository.insert(category);
+    }
+
 }
