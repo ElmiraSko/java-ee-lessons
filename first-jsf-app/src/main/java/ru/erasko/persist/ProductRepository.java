@@ -48,6 +48,20 @@ public class ProductRepository {
         return Optional.empty();
     }
 
+    public Product findByName(String name) {
+        return em.createQuery("from Product where name = ?1", Product.class)
+                .setParameter(1, name)
+                .getSingleResult();
+    }
+
+    public List<Product> findProductByCategoryId(Long id) {
+        Category category = em.find(Category.class, id);
+        return em.createQuery("from Product where category = ?1", Product.class)
+                .setParameter(1, category)
+                .getResultList();
+
+    }
+
     public List<Product> findAll() {
         return em.createQuery("from Product", Product.class)
                 .getResultList();

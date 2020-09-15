@@ -100,4 +100,5 @@ public class ProductRepr {
     public int hashCode() {
         return Objects.hash(id, name, price, categoryName);
     }
+
 }

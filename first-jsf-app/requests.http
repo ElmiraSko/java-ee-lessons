@@ -1,0 +1,39 @@
+GET http://localhost:8080/first-jsf-app/api/product/4
+
+###
+
+GET http://localhost:8080/first-jsf-app/api/product
+
+###
+
+GET http://localhost:8080/first-jsf-app/api/product/Nokia
+
+###
+
+POST http://localhost:8080/first-jsf-app/api/product
+Content-Type: application/json
+
+{
+  "categoryId": 1,
+  "categoryName": "Laptop",
+  "description": "Apple description",
+  "name": "Apple XX7",
+  "price": 12800.00
+}
+
+###
+
+GET http://localhost:8080/first-jsf-app/api/product/category/2
+
+###
+
+POST http://localhost:8080/first-jsf-app/api/product/category
+Content-Type: application/json
+
+{
+  "name": "category"
+}
+
+###
+
+DELETE http://localhost:8080/first-jsf-app/api/product/8
