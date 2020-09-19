@@ -1,0 +1,64 @@
+<html lang="un" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <ui:include src="/fragments/head.xhtml">
+        <ui:param name="activePage" value="productPage"/>
+    </ui:include>
+</h:head>
+
+<h:body>
+    <ui:include src="/fragments/menu.xhtml">
+        <ui:param name="activePage" value="productPage"/>
+    </ui:include>
+
+    <div class="container">
+        <h1 class="text-center">User list</h1>
+
+        <h:form id="usersForm">
+            <div class="row py-2">
+                <div class="col-12">
+                    <h:commandButton value="Add user" styleClass="btn btn-primary"
+                                     action="#{userController.createUser}"/>
+                </div>
+            </div>
+            <h:dataTable value="#{userController.allUsers}"
+                         styleClass="table table-striped table-bordered"
+                         var="user">
+                <h:column>
+                    <f:facet name="header">Id</f:facet>
+                    #{user.id}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Name</f:facet>
+                    #{user.name}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Role</f:facet>
+                    <h:selectOneMenu size="1" styleClass="form-control" id="productCategory"
+                                        value="#{userController.userRepr.getRolesName()}">
+                        <f:selectItems value="#{userController.getAllRoles()}"
+                                       var="role"
+                                       itemValue="#{role.id}"
+                                       itemLabel="#{role.name}"
+                                       itemLabelEscaped="true"/>
+                    </h:selectOneMenu>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Action</f:facet>
+                    <h:commandButton value="Edit" styleClass="btn btn-success"
+                                     action="#{userController.editUser(user)}"/>
+                    <h:commandButton value="Delete" styleClass="btn btn-danger"
+                                     action="#{userController.deleteUser(user)}">
+                        <f:ajax event="click" render="productsForm"/>
+                    </h:commandButton>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </div>
+
+    <ui:include src="/fragments/scripts.xhtml"/>
+</h:body>
+</html>

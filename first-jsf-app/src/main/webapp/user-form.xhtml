@@ -1,0 +1,43 @@
+<html lang="un" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:include src="/fragments/head.xhtml" />
+
+<h:body>
+    <ui:include src="/fragments/menu.xhtml"/>
+
+    <div class="container">
+        <h1 class="text-center">Save user</h1>
+        <div class="row py-2">
+            <h:form id="userForm">
+                <div class="form-group">
+                    <h:outputLabel value="Name"/>
+                    <h:inputText styleClass="form-control" id="name" value="#{userController.userRepr.name}" placeholder="Enter name"/>
+                </div>
+                <div class="form-group">
+                    <h:outputLabel value="Description"/>
+                    <h:inputText styleClass="form-control" id="description" value="#{userController.userRepr.password}" placeholder="Enter password"/>
+                </div>
+                <div class="form-group">
+                    <h:outputLabel value="Roles"/>
+                    <h:selectOneListbox size="1" styleClass="form-control" id="userRole"
+                                        value="#{userController.userRepr.getRolesName()}">
+                        <f:selectItems value="#{userController.getAllRoles}"
+                                       var="role"
+                                       itemValue="#{role.id}"
+                                       itemLabel="#{role.name}"
+                                       itemLabelEscaped="true"/>
+                    </h:selectOneListbox>
+                </div>
+
+                <h:commandButton value="Submit"
+                                 styleClass="btn btn-primary" action="#{userController.saveUser}"/>
+            </h:form>
+        </div>
+    </div>
+
+    <ui:include src="/fragments/scripts.xhtml"/>
+</h:body>
+</html>

@@ -5,6 +5,10 @@
     <file url="file://$PROJECT_DIR$/first-jsf-app/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/first-jsf-app/src/main/webapp" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/first-web-app/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jms-client/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jms-client/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/rest-client/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/rest-client/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ws-client/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ws-client/src/main/resources" charset="UTF-8" />
   </component>
