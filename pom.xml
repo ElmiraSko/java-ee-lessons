@@ -19,5 +19,7 @@
         <module>first-web-app</module>
         <module>first-jsf-app</module>
         <module>ws-client</module>
+        <module>rest-client</module>
+        <module>jms-client</module>
     </modules>
 </project>

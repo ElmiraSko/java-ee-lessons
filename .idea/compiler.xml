@@ -8,6 +8,8 @@
         <outputRelativeToContentRoot value="true" />
         <module name="first-web-app" />
         <module name="ws-client" />
+        <module name="rest-client" />
+        <module name="jms-client" />
         <module name="first-jsf-app" />
       </profile>
     </annotationProcessing>
