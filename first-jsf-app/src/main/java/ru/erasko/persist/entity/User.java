@@ -17,7 +17,7 @@ public class User {
     @Column(length = 128, nullable = false)
     private String password;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -26,10 +26,11 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String name, String password) {
+    public User(Long id, String name, String password, List<Role> roles) {
         this.id = id;
         this.name = name;
         this.password = password;
+        this.roles = roles;
     }
 
     public Long getId() {

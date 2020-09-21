@@ -3,17 +3,17 @@ package ru.erasko.service.repr;
 import ru.erasko.persist.entity.Role;
 import ru.erasko.persist.entity.User;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.io.Serializable;
+import java.util.*;
 
-public class UserRepr {
+public class UserRepr implements Serializable {
 
     private Long id;
     private String name;
     private String password;
-    Map<Long, String> roles = new HashMap<>();
+
+    private List<Long> selectedRoleIds; // для получения из представления
+    private String[] strRoles; //для вывода в представлении
 
     public UserRepr() {
     }
@@ -22,9 +22,15 @@ public class UserRepr {
         this.id = user.getId();
         this.name = user.getName();
         this.password = user.getPassword();
+
         if (user.getRoles() != null) {
-            for (Role r : user.getRoles()) {
-                roles.put(r.getId(), r.getName());
+
+            List<Role> rl = user.getRoles();
+
+            strRoles = new String[rl.size()]; //
+
+            for (int i = 0; i < rl.size(); i++) {
+                strRoles[i] = rl.get(i).getName(); //
             }
         }
     }
@@ -53,14 +59,19 @@ public class UserRepr {
         this.password = password;
     }
 
-    public Map<Long, String> getRoles() {
-        return roles;
+    public List<Long> getSelectedRoleIds() {
+        return selectedRoleIds;
     }
 
-    public void setRoles(Map<Long, String> roles) {
-        this.roles = roles;
+    public void setSelectedRoleIds(List<Long> selectedRoleIds) {
+        this.selectedRoleIds = selectedRoleIds;
     }
-    public Set<String> getRolesName() {
-        return new HashSet<>(roles.values());
+
+    public String getStrRoles() {
+        return Arrays.toString(strRoles);
+    }
+
+    public void setStrRoles(String[] strRoles) {
+        this.strRoles = strRoles;
     }
 }

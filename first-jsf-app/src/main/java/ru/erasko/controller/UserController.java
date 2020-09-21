@@ -9,7 +9,9 @@ import ru.erasko.service.repr.UserRepr;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 import java.io.Serializable;
 import java.util.List;
 
@@ -26,16 +28,16 @@ public class UserController implements Serializable {
 
     private UserRepr userRepr;
 
-    public  List<RoleRepr> getAllRoles() {
-     return roleService.findAll();
-    }
-
     public UserRepr getUserRepr() {
         return userRepr;
     }
 
     public void setUserRepr(UserRepr userRepr) {
         this.userRepr = userRepr;
+    }
+
+    public  List<RoleRepr> getAllRoles() {
+        return roleService.findAll();
     }
 
     public List<UserRepr> getAllUsers(){
@@ -45,12 +47,12 @@ public class UserController implements Serializable {
 
     public String createUser() {
         this.userRepr = new UserRepr();
-        return "/user-form.xhtml?faces-redirect=true";
+        return "/admin/user-form.xhtml?faces-redirect=true";
     }
 
     public String editUser(UserRepr userRepr) {
         this.userRepr = userRepr;
-        return "/user-form.xhtml?faces-redirect=true";
+        return "/admin/user-form.xhtml?faces-redirect=true";
     }
 
     public void deleteUser(UserRepr userRepr) {
@@ -63,6 +65,11 @@ public class UserController implements Serializable {
         } else {
             userService.insert(userRepr);
         }
-        return "/users.xhtml?faces-redirect=true";
+        return "/admin/users.xhtml?faces-redirect=true";
+    }
+
+    public String logout() {
+        ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).invalidate();
+        return "/index.xhtml?faces-redirect=true";
     }
 }

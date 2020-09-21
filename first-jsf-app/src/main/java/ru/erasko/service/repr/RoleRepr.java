@@ -17,7 +17,6 @@ public class RoleRepr implements Serializable {
         this.name = role.getName();
     }
 
-
     public Long getId() {
         return id;
     }

@@ -37,14 +37,7 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header">Role</f:facet>
-                    <h:selectOneMenu size="1" styleClass="form-control" id="productCategory"
-                                        value="#{userController.userRepr.getRolesName()}">
-                        <f:selectItems value="#{userController.getAllRoles()}"
-                                       var="role"
-                                       itemValue="#{role.id}"
-                                       itemLabel="#{role.name}"
-                                       itemLabelEscaped="true"/>
-                    </h:selectOneMenu>
+                   #{user.getStrRoles()}
                 </h:column>
                 <h:column>
                     <f:facet name="header">Action</f:facet>
@@ -52,7 +45,7 @@
                                      action="#{userController.editUser(user)}"/>
                     <h:commandButton value="Delete" styleClass="btn btn-danger"
                                      action="#{userController.deleteUser(user)}">
-                        <f:ajax event="click" render="productsForm"/>
+                        <f:ajax event="click" render="usersForm"/>
                     </h:commandButton>
                 </h:column>
             </h:dataTable>
